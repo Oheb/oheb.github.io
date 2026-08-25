@@ -1,0 +1,192 @@
+ADD THIS CSS ONCE INSIDE YOUR EXISTING <style> BLOCK:
+
+.guide-screenshot {
+  margin: 28px 0 36px;
+}
+
+.guide-screenshot img {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  border: 1px solid #d8dee4;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.guide-screenshot figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #667085;
+  line-height: 1.5;
+}
+
+
+IMAGE 1: 01-report-form.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/01-report-form.png"
+    alt="Analytics Bud report form interface"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud form interface (Callable with /form-report)</figcaption>
+</figure>
+
+
+IMAGE 2: 02-filled-site-app-form.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/02-filled-site-app-form.png"
+    alt="Completed Analytics Bud Site App Exchange report form"
+    loading="lazy"
+  >
+  <figcaption>Example of Analytics-Bud form that is filled in for a site-app-exchange report</figcaption>
+</figure>
+
+
+IMAGE 3: 03-report-started-thread.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/03-report-started-thread.png"
+    alt="Analytics Bud Slack thread after starting a report"
+    loading="lazy"
+  >
+  <figcaption>Analytics bud thread response that is messaged to user after executing report</figcaption>
+</figure>
+
+
+IMAGE 4: 04-status-my-queries.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/04-status-my-queries.png"
+    alt="Analytics Bud status message showing the user's current queries"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status message, showing all current queries running on user’s device</figcaption>
+</figure>
+
+
+IMAGE 5: 05-status-all-queries.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/05-status-all-queries.png"
+    alt="Analytics Bud status all message showing workspace queries"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status all message, showing all queries currently running across entire workspace. Notice the geography report has not been assigned a query because analytics-bud only runs one query at a time per device.</figcaption>
+</figure>
+
+
+IMAGE 6: 06-conversation-query-statuses.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/06-conversation-query-statuses.png"
+    alt="Slack conversation showing multiple Analytics Bud query statuses"
+    loading="lazy"
+  >
+  <figcaption>A Typical Analytics-bud message thread, showing the current queries running (or ran) and the statuses of each. Note the Site-App Exchange report has finished running and is ready for review, the geography report that was assigning earlier is now running on the user’s HIVE server.</figcaption>
+</figure>
+
+
+IMAGE 7: 07-completed-site-app-report.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/07-completed-site-app-report.png"
+    alt="Completed Analytics Bud Site App Exchange report in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud has completed its analytics showing the results of the site-app-exchange report that the user requested. (Impressions &amp; clicks by site)</figcaption>
+</figure>
+
+
+IMAGE 8: 08-completed-site-app-results-expanded.png
+
+NOTE: This screenshot did not have a standalone caption in the Word file; the caption below is proposed.
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/08-completed-site-app-results-expanded.png"
+    alt="Expanded Analytics Bud Site App Exchange results"
+    loading="lazy"
+  >
+  <figcaption>Expanded Site-App Exchange results showing the full site-level breakdown in Slack.</figcaption>
+</figure>
+
+
+IMAGE 9: 09-csv-export-preview.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/09-csv-export-preview.png"
+    alt="Analytics Bud CSV export preview in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud allows exporting results to CSV to showcase and interpret querying results further in excel</figcaption>
+</figure>
+
+
+IMAGE 10: 10-shared-report-message.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/10-shared-report-message.png"
+    alt="Forwarded Analytics Bud report shared in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud results can be shared with anybody team directly within Slack through forwarding messages, all results a cached in system for up to 6 hours after the report completes. Note that the user must allow the url to be displayed once shared.</figcaption>
+</figure>
+
+
+IMAGE 11: 11-shared-query-csv-export.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/11-shared-query-csv-export.png"
+    alt="Analytics Bud CSV export started from a shared query ID"
+    loading="lazy"
+  >
+  <figcaption>From anybody’s slack interface, they can export any Analytics-bud report that had been ran within the cached period into a csv on their end, regardless of who initially ran the query. All they need is the query ID which can acquired through /Analytics-Bud status all or shared by their colleague directly.</figcaption>
+</figure>
+
+
+IMAGE 12: 12-geography-report-running.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/12-geography-report-running.png"
+    alt="Analytics Bud Geography Report running in Slack"
+    loading="lazy"
+  >
+  <figcaption>Larger reports, such as Geography reports, may take longer to complete, sometimes over an hour if many metrics or long date spans are present.</figcaption>
+</figure>
+
+
+IMAGE 13: 13-specific-query-status.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/13-specific-query-status.png"
+    alt="Analytics Bud status for a specific query"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status for a specific query, showing the current running status of a specific query being ran on the server</figcaption>
+</figure>
+
+
+IMAGE 14: 14-geography-report-complete.png
+
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/14-geography-report-complete.png"
+    alt="Completed Analytics Bud Geography Report showing impressions by state"
+    loading="lazy"
+  >
+  <figcaption>The geography report completed in just under 18 mins, showing total impressions by state for the campaign.</figcaption>
+</figure>

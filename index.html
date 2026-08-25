@@ -266,6 +266,27 @@
     letter-spacing: -0.025em;
   }
 
+  .guide-screenshot {
+    margin: 28px 0 36px;
+  }
+
+  .guide-screenshot img {
+    display: block;
+    width: 100%;
+    max-width: 1100px;
+    height: auto;
+    border: 1px solid #d8dee4;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .guide-screenshot figcaption {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #667085;
+    line-height: 1.5;
+  }
+
   main.markdown-export h2,
   main.markdown-export h3 {
     scroll-margin-top: 24px;
@@ -502,6 +523,14 @@
 <li>Analytics Bud posts a message in that conversation saying it has started your report. A reply in that message's thread updates with live progress.</li>
 <li>When it's done — usually within about 5 to 15 minutes — the finished report appears in the same thread, with an <strong>Export CSV</strong> button.</li>
 </ol>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/01-report-form.png"
+    alt="Analytics Bud report form interface"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud form interface (Callable with /form-report)</figcaption>
+</figure>
 <hr>
 <h2 id="using-the-report-form">4. Using the Report Form</h2>
 <h3 id="how-to-open-the-form">How to open the form</h3>
@@ -532,6 +561,14 @@ See Section 6.</p>
 See Section 6.</p>
 <h3 id="if-something-s-wrong-with-your-entry">If something's wrong with your entry</h3>
 <p>When you click <strong>Run Report</strong> and something doesn't check out, Analytics Bud replies with a short warning that <strong>only you can see</strong>, explaining what to fix. Nothing was run. Open the form again and correct it.</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/02-filled-site-app-form.png"
+    alt="Completed Analytics Bud Site App Exchange report form"
+    loading="lazy"
+  >
+  <figcaption>Example of Analytics-Bud form that is filled in for a site-app-exchange report</figcaption>
+</figure>
 <hr>
 <h2 id="choosing-the-right-report">5. Choosing the Right Report</h2>
 <p>Ten reports are available in Slack:</p>
@@ -620,24 +657,73 @@ Breakdowns: user segment.</p>
 <p><strong>Progress bar:</strong> estimated from elapsed time, not exact work remaining. A slow bar does not mean failure.</p>
 <p><strong>Do not re-submit</strong> because it looks slow — duplicates queue behind the original.</p>
 <p><strong>Cache:</strong> Identical reruns within ~6 hours may return instantly (<em>"served from cache"</em>).</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/03-report-started-thread.png"
+    alt="Analytics Bud Slack thread after starting a report"
+    loading="lazy"
+  >
+  <figcaption>Analytics bud thread response that is messaged to user after executing report</figcaption>
+</figure>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/12-geography-report-running.png"
+    alt="Analytics Bud Geography Report running in Slack"
+    loading="lazy"
+  >
+  <figcaption>Larger reports, such as Geography reports, may take longer to complete, sometimes over an hour if many metrics or long date spans are present.</figcaption>
+</figure>
 <hr>
 <h2 id="checking-report-status">8. Checking Report Status</h2>
 <p>Use slash commands — not plain English.</p>
 <pre><code class="language-text">/analytics-bud status
 </code></pre>
 <p>Your active reports (Query ID, name, status, progress %, elapsed, campaign/dates).</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/04-status-my-queries.png"
+    alt="Analytics Bud status message showing the user's current queries"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status message, showing all current queries running on user’s device</figcaption>
+</figure>
 <pre><code class="language-text">/analytics-bud status all
 </code></pre>
 <p>Everyone's active reports (queue visibility).</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/05-status-all-queries.png"
+    alt="Analytics Bud status all message showing workspace queries"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status all message, showing all queries currently running across entire workspace. Notice the geography report has not been assigned a query because analytics-bud only runs one query at a time per device.</figcaption>
+</figure>
 <pre><code class="language-text">/analytics-bud status a3f7b2c1
 </code></pre>
 <p>One report by Query ID.</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/13-specific-query-status.png"
+    alt="Analytics Bud status for a specific query"
+    loading="lazy"
+  >
+  <figcaption>Analytics-Bud status for a specific query, showing the current running status of a specific query being ran on the server</figcaption>
+</figure>
 <p>Status replies post to the <strong>Analytics Bud Messages tab</strong> (Apps → Analytics Bud). From another channel you may see an ephemeral pointer to open Messages.</p>
 <div class="table-wrapper"><table><thead><tr><th>Signal</th><th>Meaning</th></tr></thead><tbody><tr><td>Still running / Queued in thread</td><td>Working</td></tr><tr><td>✅ Query complete + results</td><td>Done</td></tr><tr><td>❌ Query failed</td><td>See Section 13</td></tr><tr><td>No active queries on status</td><td>Nothing running</td></tr></tbody></table></div>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/06-conversation-query-statuses.png"
+    alt="Slack conversation showing multiple Analytics Bud query statuses"
+    loading="lazy"
+  >
+  <figcaption>A Typical Analytics-bud message thread, showing the current queries running (or ran) and the statuses of each. Note the Site-App Exchange report has finished running and is ready for review, the geography report that was assigning earlier is now running on the user’s HIVE server.</figcaption>
+</figure>
 <hr>
 <h2 id="cancelling-a-report">9. Cancelling a Report</h2>
 <pre><code class="language-text">/analytics-bud cancel a3f7b2c1
 </code></pre>
+
 <p>Cancel one report (your Query ID).</p>
 <pre><code class="language-text">/analytics-bud cancel all
 </code></pre>
@@ -665,6 +751,22 @@ Breakdowns: user segment.</p>
 <pre><code class="language-text">/analytics-bud metrics a3f7b2c1 impressions,ctr,cpa
 </code></pre>
 <p>Reply visible only to you.</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/07-completed-site-app-report.png"
+    alt="Completed Analytics Bud Site App Exchange report in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud has completed its analytics showing the results of the site-app-exchange report that the user requested. (Impressions &amp; clicks by site)</figcaption>
+</figure>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/14-geography-report-complete.png"
+    alt="Completed Analytics Bud Geography Report showing impressions by state"
+    loading="lazy"
+  >
+  <figcaption>The geography report completed in just under 18 mins, showing total impressions by state for the campaign.</figcaption>
+</figure>
 <hr>
 <h2 id="sharing-results-in-slack">11. Sharing Results in Slack</h2>
 <h3 id="forward-the-summary-message">Forward the summary message</h3>
@@ -672,13 +774,36 @@ Breakdowns: user segment.</p>
 <blockquote>
 <p><strong>Enable the message preview</strong> — the option <strong>"Show this message"</strong> (or "Include message preview"). If you leave it off, the recipient only gets a <strong>link they can't open</strong> because they weren't in the original conversation. With preview on, the full report content travels with the share.</p>
 </blockquote>
-<p>Run <code>/form-report</code> from the conversation where you want results to live when possible.</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/10-shared-report-message.png"
+    alt="Forwarded Analytics Bud report shared in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud results can be shared with anybody team directly within Slack through forwarding messages, all results a cached in system for up to 6 hours after the report completes. Note that the user must allow the url to be displayed once shared.</figcaption>
+</figure>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/11-shared-query-csv-export.png"
+    alt="Analytics Bud CSV export started from a shared query ID"
+    loading="lazy"
+  >
+  <figcaption>From anybody’s slack interface, they can export any Analytics-bud report that had been ran within the cached period into a csv on their end, regardless of who initially ran the query. All they need is the query ID which can acquired through /Analytics-Bud status all or shared by their colleague directly.</figcaption>
+</figure>
 <h3 id="export-csv">Export CSV</h3>
 <p>Click <strong>Export CSV</strong> on the results message. Analytics Bud posts the file in the thread when ready. Click the filename to download.</p>
 <p>Export from another conversation (within ~6 hours of completion):</p>
 <pre><code class="language-text">/analytics-bud export a3f7b2c1
 </code></pre>
 <p>CSV delivers where you run the command.</p>
+<figure class="guide-screenshot">
+  <img
+    src="./analytics-bud-images/09-csv-export-preview.png"
+    alt="Analytics Bud CSV export preview in Slack"
+    loading="lazy"
+  >
+  <figcaption>Analytics-bud allows exporting results to CSV to showcase and interpret querying results further in excel</figcaption>
+</figure>
 <hr>
 <h2 id="common-cs-use-cases">12. Common CS Use Cases</h2>
 <div class="table-wrapper"><table><thead><tr><th>Scenario</th><th>Form choices</th></tr></thead><tbody><tr><td>Monthly geo delivery</td><td>Geography Report · campaign · month dates · no dimensions</td></tr><tr><td>Site/app/exchange list</td><td>Performance: Site/App/Exchange · no dimensions · Export CSV</td></tr><tr><td>Site list for one line item</td><td>Same + <strong>Line item IDs</strong></td></tr><tr><td>Reach &amp; frequency</td><td>Reach &amp; Frequency (KS) · metrics: impressions, reach, frequency</td></tr><tr><td>Frequency buckets</td><td>Frequency Buckets · no dimensions</td></tr><tr><td>Day-by-day pacing</td><td>Geography or Overall Campaign Performance · Dimension: <strong>Day</strong> · select only needed metrics</td></tr><tr><td>Creative comparison</td><td>Geography or OCP · Dimension: <strong>Creative name</strong> · metrics: impressions, clicks, CTR</td></tr><tr><td>CTV review</td><td>CTV Performance · optional Dimension: Genre</td></tr><tr><td>Unique users impressed vs clicked</td><td>Impressed &amp; Clickers · counts only; escalate for actual Sizmek Cookies</td></tr><tr><td>Pixel / conversion questions</td><td>URL Pixels, Pixel Fires, or DSP Pixel Report + <strong>Pixel IDs</strong></td></tr><tr><td>Client wants a spreadsheet</td><td>Simplest run (no dimensions) → <strong>Export CSV</strong></td></tr></tbody></table></div>
