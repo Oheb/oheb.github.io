@@ -471,7 +471,7 @@
 <li>You need row-level lists of individual users — Analytics Bud reports counts and summaries, not user lists</li>
 <li>You need a custom calculation that isn't one of the built-in reports</li>
 </ul>
-<p>Most reports finish in roughly <strong>5 to 15 minutes</strong>. Long date ranges, lots of selected metrics, and multiple breakdowns all push that higher — see Section 6 for how to keep reports fast.</p>
+<p>Most reports finish in roughly <strong>5 to 15 minutes</strong>. Geography reports often take about <strong>15 to 30 minutes</strong>. Long date ranges, lots of selected metrics, and multiple breakdowns all push that higher — see Section 6 for how to keep reports fast.</p>
 <hr>
 <h2 id="before-you-start">2. Before You Start</h2>
 <h3 id="you-must-be-connected-to-the-cisco-vpn">You must be connected to the Cisco VPN</h3>
@@ -671,7 +671,7 @@ Breakdowns: user segment.</p>
     alt="Analytics Bud Geography Report running in Slack"
     loading="lazy"
   >
-  <figcaption>Larger reports, such as Geography Reports, may take longer to complete, sometimes upwards of 30 mins if multiple metrics or long date spans are present.</figcaption>
+  <figcaption>Larger reports, such as Geography reports, may take longer to complete, sometimes over an hour if many metrics or long date spans are present.</figcaption>
 </figure>
 <hr>
 <h2 id="checking-report-status">8. Checking Report Status</h2>
@@ -696,7 +696,7 @@ Breakdowns: user segment.</p>
     alt="Analytics Bud status all message showing workspace queries"
     loading="lazy"
   >
-  <figcaption>Analytics-Bud status all message, showing all queries currently running across entire workspace. Notice the geography report has not been assigned a query because analytics-bud only runs one query at a time per device.</figcaption>
+  <figcaption>Analytics-Bud status all message, showing all queries currently running across the workspace. The geography report is still assigning a Query ID while another report is already running.</figcaption>
 </figure>
 <pre><code class="language-text">/analytics-bud status a3f7b2c1
 </code></pre>
@@ -765,7 +765,7 @@ Breakdowns: user segment.</p>
     alt="Completed Analytics Bud Geography Report showing impressions by state"
     loading="lazy"
   >
-  <figcaption>After passing the queing process, This geography report completed in under 12 mins, showing total impressions by state for the campaign.</figcaption>
+  <figcaption>The geography report completed in just under 18 mins, showing total impressions by state for the campaign.</figcaption>
 </figure>
 <hr>
 <h2 id="sharing-results-in-slack">11. Sharing Results in Slack</h2>
