@@ -471,7 +471,7 @@
 <li>You need row-level lists of individual users — Analytics Bud reports counts and summaries, not user lists</li>
 <li>You need a custom calculation that isn't one of the built-in reports</li>
 </ul>
-<p>Most reports finish in roughly <strong>5 to 15 minutes</strong>. Geography and Pixel Related reports often take about <strong>15 to 30 minutes</strong>. Long date ranges, lots of selected metrics, and multiple breakdowns all push that higher — see Section 6 for how to keep reports fast.</p>
+<p>Most reports finish in roughly <strong>5 to 15 minutes</strong>. Geography reports often take about <strong>15 to 30 minutes</strong>. Long date ranges, lots of selected metrics, and multiple breakdowns all push that higher — see Section 6 for how to keep reports fast.</p>
 <hr>
 <h2 id="before-you-start">2. Before You Start</h2>
 <h3 id="you-must-be-connected-to-the-cisco-vpn">You must be connected to the Cisco VPN</h3>
@@ -559,6 +559,10 @@ Same format. On <strong>Pixel Fires</strong> only, the label reads "End date (YY
 See Section 6.</p>
 <p><strong>Dimensions</strong> (optional, multi-select)<br>
 See Section 6.</p>
+<p><strong>Sort results by</strong> (optional, appears with Dimensions)<br>
+Leave on <strong>Automatic</strong> for normal reporting: <strong>Day</strong> lists dates from start to end; Site, metro, and similar list the largest by impressions. Pick a metric only if you want those non-date rows ranked by it instead — it must also be selected in Metrics. See Section 6.</p>
+<p><strong>Rank CTR / CPA / ROAS</strong> (Geography Report only, last field)<br>
+Shown only on <strong>Geography Report</strong>. Used after you pick a rate metric and a location Dimension (DMA, metro, city, state, zip, or country). Keep <strong>Recommended</strong> for normal client reporting; choose <strong>True highest</strong> when you want tiny markets included. Other reports always hide tiny markets. See Section 6.</p>
 <h3 id="if-something-s-wrong-with-your-entry">If something's wrong with your entry</h3>
 <p>When you click <strong>Run Report</strong> and something doesn't check out, Analytics Bud replies with a short warning that <strong>only you can see</strong>, explaining what to fix. Nothing was run. Open the form again and correct it.</p>
 <figure class="guide-screenshot">
@@ -598,8 +602,13 @@ Breakdowns: user segment.</p>
 <blockquote>
 <p><strong>Important:</strong> This report returns only the <strong>total number</strong> of unique users (Sizmek Cookies) — impressed vs clickers. It does <strong>not</strong> return individual Sizmek Cookies. If someone needs the actual cookie values, escalate to @Joe Morante on Slack — do not expect that from Analytics Bud.</p>
 </blockquote>
-<p><strong>URL Pixels</strong> — Requires Pixel IDs. Messaged fires by URL / referrer.<br>
-<strong>Pixel Fires</strong> — Requires Pixel IDs; campaign optional. Conversion fire log with geo and hierarchy.<br>
+<p><strong>URL Pixels</strong> — Requires Pixel IDs. Pixel fires by URL / referrer.</p>
+<blockquote>
+<p><strong>Reading the three fire metrics.</strong> This report returns three separate counts, and they will not match each other. <strong>Messaged fires</strong> are fires Analytics Bud could tie back to an ad the person was actually served. <strong>Unmessaged fires</strong> are fires with no matching ad exposure. <strong>Total fires</strong> is every fire — messaged plus unmessaged.</p>
+<p>Messaged fires will always be <strong>lower</strong> than total fires. If a number looks "too low" next to a raw pixel count, check whether you are comparing messaged fires against total fires — that is the usual explanation, not a missing-data problem.</p>
+<p>Select <strong>Total fires</strong> on its own when someone asks "how many times did this pixel fire?" Selecting no metrics returns all three. The URL breakdown lists the <strong>top 50 URLs</strong>; URLs beyond that are still counted in the totals at the top.</p>
+</blockquote>
+<p><strong>Pixel Fires</strong> — Requires Pixel IDs; campaign optional. Conversion fire log with geo and hierarchy.<br>
 <strong>DSP Pixel Report</strong> — Requires Pixel IDs. Messaged vs unmessaged by conversion action.</p>
 <h3 id="check-compatibility-in-slack">Check compatibility in Slack</h3>
 <pre><code class="language-text">/analytics-bud compatibility
@@ -629,6 +638,49 @@ Breakdowns: user segment.</p>
 </ul>
 <p>Changing <strong>Report type</strong> clears Dimensions — re-pick after switching.</p>
 <p>Slack shows <strong>top rows</strong> per section (often top 8). Use <strong>Export CSV</strong> for the full list.</p>
+<h3 id="rank-frequency-ctr-cpa-roas">Rank CTR / CPA / ROAS</h3>
+<p>This field sits at the <strong>bottom of the Geography Report form</strong>, after Dimensions. It does <strong>not</strong> appear on Site/App, Overall Campaign Performance, creatives, or other reports — those always hide tiny markets.</p>
+<p>CTR, CPA, and ROAS are rates: Analytics Bud totals the underlying counts for each Dimension, then divides. For example, CTR is clicks ÷ impressions. A metro with 40 impressions and 3 clicks can look like a 7.5% CTR and jump to the top even though it is tiny.</p>
+<p><strong>This field is used only when all of these are true:</strong></p>
+<ol>
+<li>Report type is <strong>Geography Report</strong></li>
+<li>You selected <strong>CTR, CPA, or ROAS</strong> in Metrics</li>
+<li>You did <strong>not</strong> also select a volume metric such as Impressions</li>
+<li>You selected at least one <strong>location</strong> Dimension: DMA code, Metro / DMA name, City code, City name, State code, Zip code, or Country code</li>
+</ol>
+<p>Otherwise the field is ignored (or not shown). Campaign on a Geography Report, and every Dimension on other reports, always hide tiny markets.</p>
+<ul>
+<li><strong>Recommended — hide tiny markets that look unusually high:</strong> normal client reporting. Tiny markets are held out of the ranked list. The cutoff is the larger of <strong>100 impressions</strong> or <strong>0.05% of the report's impressions</strong>, so it scales with campaign size. Those markets are still included in the totals at the top.</li>
+<li><strong>True highest — include tiny markets:</strong> the literal highest rate, including tiny samples. Use this when matching an unfiltered analyst list or hunting outliers.</li>
+</ul>
+<p>The completed report shows <strong>Rate ranking</strong> so anyone sharing the result can see which method was used. Overall totals are unchanged in both modes.</p>
+<h3 id="how-top-rows-are-chosen">How "top rows" are chosen</h3>
+<p>This matters when you compare a Slack report against a list someone pulled separately.</p>
+<p><strong>You are in control of this.</strong> Use <strong>Sort results by</strong> on the form to say which metric decides the order. See the next section.</p>
+<p>If you leave it on <strong>Automatic</strong>, the rule is:</p>
+<p><strong>Day</strong> lists dates from the start date toward the end date.</p>
+<p>For other Dimensions, counted metrics that come straight from the DSP — impressions, clicks, spend, conversions, reach, revenue, video starts — the top rows are simply the <strong>largest by impressions</strong>, and <strong>no tiny-market filter is ever applied</strong>. Every row that delivered is eligible, no matter how small.</p>
+<p>The tiny-market filter exists only for the four calculated rate metrics: <strong>Frequency, CTR, CPA, and ROAS</strong>. These are divisions rather than counts, so a market with almost no delivery can post an extreme rate off a handful of impressions. When you ask for one of those rates on its own, Analytics Bud ranks by that rate and holds back tiny markets.</p>
+<p>If you select a counted metric alongside a rate — Impressions plus CTR, for example — Automatic ranks by impressions. Pick <strong>Sort results by → CTR</strong> if you want the rate to decide the order instead.</p>
+<p>Two practical consequences:</p>
+<ul>
+<li>Every completed report states what it was <strong>Sorted by</strong>, so anyone you share it with can see the ordering without asking.</li>
+<li>A small market can legitimately appear at the top of a rate report. That is real, not an error — small markets often post the highest rates because a handful of impressions swings the division.</li>
+</ul>
+<h3 id="sort-results-by">Sort results by</h3>
+<p>This field appears on every report that offers Dimensions, just below them. It decides <strong>which metric puts the rows in order</strong> inside each breakdown section.</p>
+<ul>
+<li><strong>Automatic — Day by date; others by impressions</strong> is the default. <strong>Day</strong> is calendar order (start → end). Site, metro, creative, and similar list the largest by impressions.</li>
+<li><strong>Pick any metric</strong> — Impressions, Clicks, Spend, Conversions, CTR, CPA, ROAS, and so on — to rank non-date rows by that instead. <strong>Day still stays in date order.</strong></li>
+</ul>
+<p>Three things to know:</p>
+<ol>
+<li>The metric you sort by must also be selected in <strong>Metrics</strong>. If it isn't, Analytics Bud tells you before running anything.</li>
+<li>You need at least one <strong>Dimension</strong>. With no Dimension there are no rows to order.</li>
+<li>Sorting by a <strong>rate</strong> — CTR, CPA, or ROAS — automatically hides very low-volume rows, so a site with nine impressions and one click cannot take the top spot on an 11% CTR. The cutoff is the larger of 100 impressions or 0.05% of the report's impressions, so it scales with campaign size. Hidden rows are still counted in the totals at the top. The completed report says so under <strong>Sorting note</strong>.</li>
+</ol>
+<p>Sorting changes only the order and which rows make the visible top slice. <strong>Totals never change</strong>, and <strong>Export CSV</strong> always contains the full list.</p>
+<p>If a market you expected is missing under Recommended, it is likely below the tiny-market cutoff. Re-run with <strong>True highest</strong> to include it.</p>
 <h3 id="what-makes-a-report-slower">What makes a report slower</h3>
 <ol>
 <li><strong>Long date range</strong> (biggest factor)</li>
@@ -655,6 +707,7 @@ Breakdowns: user segment.</p>
 <div class="table-wrapper"><table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>Submitting to Hive</td><td>Handing off to the reporting system</td></tr><tr><td>Queued</td><td>Another report is running; yours waits (shows queue position)</td></tr><tr><td>Query submitted</td><td>Accepted, waiting to start</td></tr><tr><td>Still running</td><td>Executing — shows Query ID, progress bar, elapsed time</td></tr></tbody></table></div>
 <p><strong>Query ID</strong> — eight characters like <code>a3f7b2c1</code>. Save it for status, cancel, and export.</p>
 <p><strong>Progress bar:</strong> estimated from elapsed time, not exact work remaining. A slow bar does not mean failure.</p>
+<p>Once a report passes the top of its estimate, the bar is replaced by <strong>running longer than expected</strong>, with the elapsed time next to it. Analytics Bud cannot see the reporting system's own progress, so rather than show a percentage that keeps climbing on its own, it tells you plainly that the run is overdue. The report has not failed — it is either still working or waiting for its turn on a busy system. Leave it alone; if it matters, message Daniel with the Query ID rather than re-submitting.</p>
 <p><strong>Do not re-submit</strong> because it looks slow — duplicates queue behind the original.</p>
 <p><strong>Cache:</strong> Identical reruns within ~6 hours may return instantly (<em>"served from cache"</em>).</p>
 <figure class="guide-screenshot">
@@ -678,7 +731,7 @@ Breakdowns: user segment.</p>
 <p>Use slash commands — not plain English.</p>
 <pre><code class="language-text">/analytics-bud status
 </code></pre>
-<p>Your active reports (Query ID, name, status, progress %, elapsed, campaign/dates).</p>
+<p>Your active reports (Query ID, name, status, progress % — or <em>longer than expected</em> once a run is overdue — elapsed, campaign/dates).</p>
 <figure class="guide-screenshot">
   <img
     src="./analytics-bud-images/04-status-my-queries.png"
@@ -765,7 +818,7 @@ Breakdowns: user segment.</p>
     alt="Completed Analytics Bud Geography Report showing impressions by state"
     loading="lazy"
   >
-  <figcaption>The geography report completed in under 12 mins, showing total impressions by state for the campaign.</figcaption>
+  <figcaption>The geography report completed in just under 18 mins, showing total impressions by state for the campaign.</figcaption>
 </figure>
 <hr>
 <h2 id="sharing-results-in-slack">11. Sharing Results in Slack</h2>
@@ -809,7 +862,7 @@ Breakdowns: user segment.</p>
 <div class="table-wrapper"><table><thead><tr><th>Scenario</th><th>Form choices</th></tr></thead><tbody><tr><td>Monthly geo delivery</td><td>Geography Report · campaign · month dates · no dimensions</td></tr><tr><td>Site/app/exchange list</td><td>Performance: Site/App/Exchange · no dimensions · Export CSV</td></tr><tr><td>Site list for one line item</td><td>Same + <strong>Line item IDs</strong></td></tr><tr><td>Reach &amp; frequency</td><td>Reach &amp; Frequency (KS) · metrics: impressions, reach, frequency</td></tr><tr><td>Frequency buckets</td><td>Frequency Buckets · no dimensions</td></tr><tr><td>Day-by-day pacing</td><td>Geography or Overall Campaign Performance · Dimension: <strong>Day</strong> · select only needed metrics</td></tr><tr><td>Creative comparison</td><td>Geography or OCP · Dimension: <strong>Creative name</strong> · metrics: impressions, clicks, CTR</td></tr><tr><td>CTV review</td><td>CTV Performance · optional Dimension: Genre</td></tr><tr><td>Unique users impressed vs clicked</td><td>Impressed &amp; Clickers · counts only; escalate for actual Sizmek Cookies</td></tr><tr><td>Pixel / conversion questions</td><td>URL Pixels, Pixel Fires, or DSP Pixel Report + <strong>Pixel IDs</strong></td></tr><tr><td>Client wants a spreadsheet</td><td>Simplest run (no dimensions) → <strong>Export CSV</strong></td></tr></tbody></table></div>
 <hr>
 <h2 id="troubleshooting-escalation">13. Troubleshooting &amp; Escalation</h2>
-<div class="table-wrapper"><table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody><tr><td>Typed a sentence; nothing happened</td><td>Use slash commands only (<code>/form-report</code>, etc.)</td></tr><tr><td>Hive MCP not reachable</td><td>Connect Cisco VPN; retry <code>/analytics-bud ping</code></td></tr><tr><td>Report failed (❌)</td><td>Read error in thread; narrow dates; retry</td></tr><tr><td>Stuck progress bar</td><td>Normal if status = Running; don't re-submit</td></tr><tr><td>Validation warning after Run Report</td><td>Fix the field named in the ephemeral message</td></tr><tr><td>Date range &gt; 120 days</td><td>Narrow dates or ask analyst outside Slack</td></tr><tr><td>Metric/dimension not available</td><td>Check compatibility line in form or <code>/analytics-bud compatibility</code></td></tr><tr><td>Dimensions cleared</td><td>You changed Report type — re-select</td></tr><tr><td>Long queue</td><td><code>/analytics-bud status all</code>; cancel your oversized run if needed</td></tr><tr><td>No rows returned</td><td>Verify campaign ID and delivery dates</td></tr><tr><td>Export/cache expired</td><td>Re-run report (~6 hour window)</td></tr><tr><td>Share recipient can't open link</td><td>Re-share with <strong>Show this message</strong> enabled</td></tr><tr><td>Status reply missing</td><td>Check Analytics Bud <strong>Messages</strong> tab</td></tr><tr><td>Bot can't post in channel</td><td><code>/invite @Analytics Bud</code></td></tr></tbody></table></div>
+<div class="table-wrapper"><table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody><tr><td>Typed a sentence; nothing happened</td><td>Use slash commands only (<code>/form-report</code>, etc.)</td></tr><tr><td>Hive MCP not reachable</td><td>Connect Cisco VPN; retry <code>/analytics-bud ping</code></td></tr><tr><td>Report failed (❌)</td><td>Read error in thread; narrow dates; retry</td></tr><tr><td>Stuck progress bar, or "running longer than expected"</td><td>Normal if status = Running; don't re-submit. A long overrun usually means the reporting system is busy, not that your report is broken</td></tr><tr><td>Validation warning after Run Report</td><td>Fix the field named in the ephemeral message</td></tr><tr><td>Date range &gt; 120 days</td><td>Narrow dates or ask analyst outside Slack</td></tr><tr><td>Metric/dimension not available</td><td>Check compatibility line in form or <code>/analytics-bud compatibility</code></td></tr><tr><td>Dimensions cleared</td><td>You changed Report type — re-select</td></tr><tr><td>Long queue</td><td><code>/analytics-bud status all</code>; cancel your oversized run if needed</td></tr><tr><td>No rows returned</td><td>Verify campaign ID and delivery dates</td></tr><tr><td>Export/cache expired</td><td>Re-run report (~6 hour window)</td></tr><tr><td>Share recipient can't open link</td><td>Re-share with <strong>Show this message</strong> enabled</td></tr><tr><td>Status reply missing</td><td>Check Analytics Bud <strong>Messages</strong> tab</td></tr><tr><td>Bot can't post in channel</td><td><code>/invite @Analytics Bud</code></td></tr></tbody></table></div>
 <h3 id="who-to-contact">Who to contact</h3>
 <p><strong>@Daniel Ohebshalom on Slack</strong> — Analytics-Bud app issues:</p>
 <ul>
@@ -856,7 +909,7 @@ Analytics Bud <strong>Messages</strong> tab.</p>
 <h3 id="commands-slash-only">Commands (slash only)</h3>
 <div class="table-wrapper"><table><thead><tr><th>Command</th><th>Purpose</th></tr></thead><tbody><tr><td><code>/form-report</code></td><td><strong>Open report form</strong></td></tr><tr><td><code>/analytics-bud form</code></td><td>Same form</td></tr><tr><td><code>/campaign-report</code></td><td>Form → Overall Campaign Performance</td></tr><tr><td><code>/analytics-bud ping</code></td><td>Connection check (VPN first)</td></tr><tr><td><code>/analytics-bud status</code></td><td>Your active reports</td></tr><tr><td><code>/analytics-bud status all</code></td><td>All active reports</td></tr><tr><td><code>/analytics-bud status &lt;id&gt;</code></td><td>One report</td></tr><tr><td><code>/analytics-bud cancel &lt;id&gt;</code></td><td>Cancel one</td></tr><tr><td><code>/analytics-bud cancel all</code></td><td>Cancel yours</td></tr><tr><td><code>/analytics-bud export &lt;id&gt;</code></td><td>Download CSV</td></tr><tr><td><code>/analytics-bud compatibility</code></td><td>Metrics &amp; breakdowns per report</td></tr><tr><td><code>/analytics-bud list</code></td><td>Report list</td></tr><tr><td><code>/analytics-bud guidelines</code></td><td>Best practices</td></tr><tr><td><code>/analytics-bud metrics</code></td><td>Metric definitions</td></tr></tbody></table></div>
 <h3 id="form-fields">Form fields</h3>
-<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Notes</th></tr></thead><tbody><tr><td>Report type</td><td>Required; changing clears Dimensions</td></tr><tr><td>Campaign ID(s)</td><td>Usually required</td></tr><tr><td>Start / End date</td><td><code>YYYYMMDD</code>; max 120 days</td></tr><tr><td>Line item / Tactic IDs</td><td>Optional filters</td></tr><tr><td>Pixel IDs</td><td>Pixel reports only</td></tr><tr><td>Metrics</td><td>Empty = all applicable; select = only those</td></tr><tr><td>Dimensions</td><td>Empty = fastest; prefer 1–2</td></tr></tbody></table></div>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Notes</th></tr></thead><tbody><tr><td>Report type</td><td>Required; changing clears Dimensions</td></tr><tr><td>Campaign ID(s)</td><td>Usually required</td></tr><tr><td>Start / End date</td><td><code>YYYYMMDD</code>; max 120 days</td></tr><tr><td>Line item / Tactic IDs</td><td>Optional filters</td></tr><tr><td>Pixel IDs</td><td>Pixel reports only</td></tr><tr><td>Metrics</td><td>Empty = all applicable; select = only those</td></tr><tr><td>Dimensions</td><td>Empty = fastest; prefer 1–2</td></tr><tr><td>Sort results by</td><td>Automatic = Day by date, others by impressions. Pick a metric to rank non-date rows; it must also be in Metrics</td></tr><tr><td>Rank CTR / CPA / ROAS</td><td>Geography Report only. Location Dimensions. Recommended hides tiny markets; True highest includes them</td></tr></tbody></table></div>
 <h3 id="rules-of-thumb">Rules of thumb</h3>
 <ul>
 <li>VPN → <code>/analytics-bud ping</code> → <code>/form-report</code></li>
